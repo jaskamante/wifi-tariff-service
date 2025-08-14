@@ -26,7 +26,16 @@ public class TariffRepository {
 
     //add/update a tariff
     public Tariff save(Tariff tariff) {
-        return tariffs.put(nextId, tariff);
+        if (tariff.id() == null) {
+            // Create new tariff with auto-generated ID
+            Tariff newTariff = new Tariff(nextId++, tariff.name(), tariff.features(), tariff.pricing());
+            tariffs.put(newTariff.id(), newTariff);
+            return newTariff;
+        } else {
+            // Update existing tariff
+            tariffs.put(tariff.id(), tariff);
+            return tariff;
+        }
     }
 
     //get tariff by ID
@@ -40,5 +49,6 @@ public class TariffRepository {
     }
     //remove a tariff
     public void deleteById(Integer id) {
+        tariffs.remove(id);
     }
 }

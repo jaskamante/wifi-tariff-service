@@ -1,0 +1,28 @@
+### Get all tariffs
+GET http://localhost:8080/api/tariffs
+
+### Get tariff by ID
+GET http://localhost:8080/api/tariffs/1
+
+### Create new tariff
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "Test Premium WiFi",
+  "features": {
+    "downloadMbps": 100,
+    "uploadMbps": 50,
+    "durationHours": 24,
+    "maxDevices": 5
+  },
+  "pricing": {
+    "basePrice": 19.99,
+    "currency": "USD",
+    "billingType": "ONE_TIME"
+  }
+}
+
+### Delete tariff
+DELETE http://localhost:8080/api/tariffs/2
