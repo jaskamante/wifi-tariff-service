@@ -1,7 +1,7 @@
 package com.wifi.tariff.model;
 
 public record Tariff(
-        String id,
+        Integer id,
         String name,
         Features features,
         Pricing pricing
