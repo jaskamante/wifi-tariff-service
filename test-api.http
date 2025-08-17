@@ -1,12 +1,19 @@
-### 1. Get all tariffs (should be empty or show your test tariff)
+# WiFi Tariff Management Service - API Tests
+# Complete test suite for CRUD operations and error handling
+
+### =============================================================================
+### BASIC CRUD OPERATIONS (Happy Path)
+### =============================================================================
+
+### 1. Get all tariffs (should be empty initially)
 GET http://localhost:8080/api/tariffs
 
-### 2. Create new tariff
+### 2. Create new tariff (basic test)
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
 {
-  "name": "Test Premium WiFi",
+  "name": "Premium Business WiFi",
   "downloadMbps": 100,
   "uploadMbps": 50,
   "durationHours": 24,
@@ -19,11 +26,30 @@ Content-Type: application/json
 ### 3. Get tariff by ID (use ID from step 2 response)
 GET http://localhost:8080/api/tariffs/1
 
-### 4. Update tariff (use ID from step 2)
+### 4. Create second tariff for testing
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Basic Guest WiFi",
+  "downloadMbps": 25,
+  "uploadMbps": 10,
+  "durationHours": 2,
+  "maxDevices": 2,
+  "basePrice": 4.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### 5. Get all tariffs (should now show multiple)
+GET http://localhost:8080/api/tariffs
+
+### 6. Update first tariff
 PUT http://localhost:8080/api/tariffs/1
 Content-Type: application/json
 
 {
+  "id": 1,
   "name": "Updated Premium WiFi",
   "downloadMbps": 150,
   "uploadMbps": 75,
@@ -34,30 +60,42 @@ Content-Type: application/json
   "billingType": "ONE_TIME"
 }
 
-### 5. Get updated tariff to verify changes
+### 7. Verify update worked
 GET http://localhost:8080/api/tariffs/1
 
-### 6. Delete tariff
-DELETE http://localhost:8080/api/tariffs/1
+### 8. Delete second tariff
+DELETE http://localhost:8080/api/tariffs/2
 
-### 7. Verify deletion (should return 404)
-GET http://localhost:8080/api/tariffs/1
+### 9. Verify deletion (should return 404)
+GET http://localhost:8080/api/tariffs/2
 
-### ERROR HANDLING TESTS
+### =============================================================================
+### ERROR HANDLING TESTS - Path Parameters
+### =============================================================================
 
-### Test 1: Invalid ID type (string instead of integer)
+### E1. Invalid ID type (string instead of integer)
 GET http://localhost:8080/api/tariffs/abc
 
-### Test 2: Negative ID
+### E2. Negative ID
 GET http://localhost:8080/api/tariffs/-1
 
-### Test 3: Zero ID
+### E3. Zero ID
 GET http://localhost:8080/api/tariffs/0
 
-### Test 4: Non-existent ID - resource not found
+### E4. Non-existent ID (resource not found)
 GET http://localhost:8080/api/tariffs/999
 
-### Test 5: Missing required field in POST
+### E5. DELETE with invalid ID type
+DELETE http://localhost:8080/api/tariffs/invalid
+
+### E6. DELETE with negative ID
+DELETE http://localhost:8080/api/tariffs/-5
+
+### =============================================================================
+### ERROR HANDLING TESTS - Request Body Validation
+### =============================================================================
+
+### E7. Missing required fields
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
@@ -66,7 +104,7 @@ Content-Type: application/json
   "uploadMbps": 50
 }
 
-### Test 6: Invalid data type in POST (string for number)
+### E8. Invalid data type (string for number)
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
@@ -81,12 +119,12 @@ Content-Type: application/json
   "billingType": "ONE_TIME"
 }
 
-### Test 7: Validation constraint violation (negative price)
+### E9. Constraint violation (negative price)
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
 {
-  "name": "Test WiFi",
+  "name": "Invalid Price WiFi",
   "downloadMbps": 100,
   "uploadMbps": 50,
   "durationHours": 24,
@@ -96,7 +134,62 @@ Content-Type: application/json
   "billingType": "ONE_TIME"
 }
 
-### Test 8: POST with ID provided (should be rejected)
+### E10. Empty string name (should fail @NotBlank)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### E11. Name too short (should fail @Size)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "AB",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### E12. Multiple constraint violations
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "",
+  "downloadMbps": -1,
+  "uploadMbps": 0,
+  "durationHours": -5,
+  "maxDevices": 0,
+  "basePrice": -100.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### E13. Completely empty request body
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{}
+
+### =============================================================================
+### ERROR HANDLING TESTS - Validation Groups (POST vs PUT)
+### =============================================================================
+
+### E14. POST with ID provided (should be rejected - Create group)
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
@@ -112,7 +205,7 @@ Content-Type: application/json
   "billingType": "ONE_TIME"
 }
 
-### Test 9: POST with null ID (should work)
+### E15. POST with null ID (should work)
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
@@ -128,71 +221,101 @@ Content-Type: application/json
   "billingType": "ONE_TIME"
 }
 
-### Step 10 Minimal Test
-### Minimal test - completely empty object
+### E16. PUT without ID in body (should be rejected - Update group)
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "name": "Updated Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### E17. PUT with ID mismatch (URL vs body - uses id in url - to check business requirements)
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "id": 999,
+  "name": "Mismatched ID Test",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### =============================================================================
+### BOUNDARY TESTING
+### =============================================================================
+
+### B1. Minimum valid values
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
-{}
+{
+  "name": "Min",
+  "downloadMbps": 1,
+  "uploadMbps": 1,
+  "durationHours": 1,
+  "maxDevices": 1,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
 
-### Test: Empty string name
+### B2. Large valid values
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
 {
-  "name": "",
-  "downloadMbps": 100,
-  "uploadMbps": 50,
-  "durationHours": 24,
-  "maxDevices": 5,
-  "basePrice": 19.99,
-  "currency": "EUR",
-  "billingType": "ONE_TIME"
+  "name": "Maximum Speed Enterprise WiFi Package with Extended Duration",
+  "downloadMbps": 5000,
+  "uploadMbps": 2500,
+  "durationHours": 720,
+  "maxDevices": 100,
+  "basePrice": 999.99,
+  "currency": "USD",
+  "billingType": "MONTHLY"
 }
 
-### Test PUT without ID in body (should be rejected)
-PUT http://localhost:8080/api/tariffs/1
-Content-Type: application/json
-
-{
-  "name": "Updated Premium WiFi",
-  "downloadMbps": 150,
-  "uploadMbps": 75,
-  "durationHours": 48,
-  "maxDevices": 8,
-  "basePrice": 29.99,
-  "currency": "EUR",
-  "billingType": "ONE_TIME"
-}
-
-### Test PUT with ID in body (should work)
-PUT http://localhost:8080/api/tariffs/1
-Content-Type: application/json
-
-{
-  "id": 1,
-  "name": "Updated Premium WiFi",
-  "downloadMbps": 150,
-  "uploadMbps": 75,
-  "durationHours": 48,
-  "maxDevices": 8,
-  "basePrice": 29.99,
-  "currency": "EUR",
-  "billingType": "ONE_TIME"
-}
-
-### Test PUT with ID in body (should work)
-PUT http://localhost:8080/api/tariffs/1
-Content-Type: application/json
-
-{
-  "id": 1,
-  "name": "Updated Premium WiFi",
-  "downloadMbps": 150,
-  "uploadMbps": 75,
-  "durationHours": 48,
-  "maxDevices": 8,
-  "basePrice": 29.99,
-  "currency": "EUR",
-  "billingType": "ONE_TIME"
-}
+#### =============================================================================
+#### ENUM VALIDATION TESTS - TODO - clarify error message for enums
+#### =============================================================================
+#
+#### EN1. Invalid currency
+#POST http://localhost:8080/api/tariffs
+#Content-Type: application/json
+#
+#{
+#  "name": "Invalid Currency Test",
+#  "downloadMbps": 100,
+#  "uploadMbps": 50,
+#  "durationHours": 24,
+#  "maxDevices": 5,
+#  "basePrice": 19.99,
+#  "currency": "INVALID",
+#  "billingType": "ONE_TIME"
+#}
+#
+#### EN2. Invalid billing type
+#POST http://localhost:8080/api/tariffs
+#Content-Type: application/json
+#
+#{
+#  "name": "Invalid Billing Type Test",
+#  "downloadMbps": 100,
+#  "uploadMbps": 50,
+#  "durationHours": 24,
+#  "maxDevices": 5,
+#  "basePrice": 19.99,
+#  "currency": "EUR",
+#  "billingType": "INVALID_TYPE"
+#}
