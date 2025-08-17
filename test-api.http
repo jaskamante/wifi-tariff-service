@@ -1,46 +1,44 @@
-### Get all tariffs
+### 1. Get all tariffs (should be empty or show your test tariff)
 GET http://localhost:8080/api/tariffs
 
-### Get tariff by ID
-GET http://localhost:8080/api/tariffs/1
-
-### Create new tariff
+### 2. Create new tariff
 POST http://localhost:8080/api/tariffs
 Content-Type: application/json
 
 {
-  "id": null,
   "name": "Test Premium WiFi",
-  "features": {
-    "downloadMbps": 100,
-    "uploadMbps": 50,
-    "durationHours": 24,
-    "maxDevices": 5
-  },
-  "pricing": {
-    "basePrice": 19.99,
-    "currency": "USD",
-    "billingType": "ONE_TIME"
-  }
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
 }
 
-### Update existing tariff
+### 3. Get tariff by ID (use ID from step 2 response)
+GET http://localhost:8080/api/tariffs/1
+
+### 4. Update tariff (use ID from step 2)
 PUT http://localhost:8080/api/tariffs/1
 Content-Type: application/json
 
 {
   "name": "Updated Premium WiFi",
-  "features": {
-    "downloadMbps": 200,
-    "uploadMbps": 100,
-    "durationHours": 48,
-    "maxDevices": 10
-  },
-  "pricing": {
-    "basePrice": 29.99,
-    "currency": "EUR",
-    "billingType": "ONE_TIME"
-  }
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
 }
-### Delete tariff
-DELETE http://localhost:8080/api/tariffs/2
+
+### 5. Get updated tariff to verify changes
+GET http://localhost:8080/api/tariffs/1
+
+### 6. Delete tariff
+DELETE http://localhost:8080/api/tariffs/1
+
+### 7. Verify deletion (should return 404)
+GET http://localhost:8080/api/tariffs/1

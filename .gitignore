@@ -32,3 +32,13 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
+
+# H2 Database files
+data/
+*.mv.db
+*.trace.db
+*.lock.db
+
+# Test outputs (if any)
+target/test-classes/
+build/test-results/

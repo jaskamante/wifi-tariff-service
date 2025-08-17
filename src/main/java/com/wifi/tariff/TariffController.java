@@ -37,23 +37,21 @@ public class TariffController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Tariff> updateTariff(@PathVariable Integer id, @RequestBody Tariff tariff) {
-        Optional<Tariff> updatedTariff = tariffRepository.updateById(id, tariff);
-
-        if (updatedTariff.isPresent()) {
-            return ResponseEntity.ok(updatedTariff.get());
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tariff not found");
-        }
+        return tariffRepository.findById(id)
+                .map(existingTariff -> {
+                    tariff.setId(id);  // Ensure we keep the same ID
+                    return ResponseEntity.ok(tariffRepository.save(tariff));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Tariff> deleteTariff(@PathVariable Integer id) {
-        Optional<Tariff> deletedTariff = tariffRepository.deleteById(id);
-
-        if (deletedTariff.isPresent()) {
-            return ResponseEntity.ok(deletedTariff.get());
-        } else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tariff not found!");
-        }
+        return tariffRepository.findById(id)
+                .map(tariff -> {
+                    tariffRepository.deleteById(id);
+                    return ResponseEntity.ok(tariff);
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tariff not found"));
     }
 }
