@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public record Pricing(
         BigDecimal basePrice,
-        String currency,
+        Currency currency,
         BillingType billingType
 ) { }

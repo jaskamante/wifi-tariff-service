@@ -24,5 +24,23 @@ Content-Type: application/json
   }
 }
 
+### Update existing tariff
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "name": "Updated Premium WiFi",
+  "features": {
+    "downloadMbps": 200,
+    "uploadMbps": 100,
+    "durationHours": 48,
+    "maxDevices": 10
+  },
+  "pricing": {
+    "basePrice": 29.99,
+    "currency": "EUR",
+    "billingType": "ONE_TIME"
+  }
+}
 ### Delete tariff
 DELETE http://localhost:8080/api/tariffs/2

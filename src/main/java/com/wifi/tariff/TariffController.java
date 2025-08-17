@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tariffs")
@@ -34,10 +35,25 @@ public class TariffController {
         Tariff savedTariff = tariffRepository.save(tariff);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTariff);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Tariff> updateTariff(@PathVariable Integer id, @RequestBody Tariff tariff) {
+        Optional<Tariff> updatedTariff = tariffRepository.updateById(id, tariff);
+
+        if (updatedTariff.isPresent()) {
+            return ResponseEntity.ok(updatedTariff.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tariff not found");
+        }
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTariff(@PathVariable Integer id) {
-        tariffRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Tariff> deleteTariff(@PathVariable Integer id) {
+        Optional<Tariff> deletedTariff = tariffRepository.deleteById(id);
+
+        if (deletedTariff.isPresent()) {
+            return ResponseEntity.ok(deletedTariff.get());
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tariff not found!");
+        }
     }
 }
