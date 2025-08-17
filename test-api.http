@@ -42,3 +42,157 @@ DELETE http://localhost:8080/api/tariffs/1
 
 ### 7. Verify deletion (should return 404)
 GET http://localhost:8080/api/tariffs/1
+
+### ERROR HANDLING TESTS
+
+### Test 1: Invalid ID type (string instead of integer)
+GET http://localhost:8080/api/tariffs/abc
+
+### Test 2: Negative ID
+GET http://localhost:8080/api/tariffs/-1
+
+### Test 3: Zero ID
+GET http://localhost:8080/api/tariffs/0
+
+### Test 4: Non-existent ID - resource not found
+GET http://localhost:8080/api/tariffs/999
+
+### Test 5: Missing required field in POST
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "downloadMbps": 100,
+  "uploadMbps": 50
+}
+
+### Test 6: Invalid data type in POST (string for number)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Test WiFi",
+  "downloadMbps": "not-a-number",
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test 7: Validation constraint violation (negative price)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Test WiFi",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": -10.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test 8: POST with ID provided (should be rejected)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "Test WiFi with ID",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test 9: POST with null ID (should work)
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "Test WiFi with null ID",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Step 10 Minimal Test
+### Minimal test - completely empty object
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{}
+
+### Test: Empty string name
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test PUT without ID in body (should be rejected)
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "name": "Updated Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test PUT with ID in body (should work)
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Test PUT with ID in body (should work)
+PUT http://localhost:8080/api/tariffs/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 48,
+  "maxDevices": 8,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
