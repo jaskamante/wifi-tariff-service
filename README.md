@@ -27,13 +27,13 @@ I developed a service with the following functionality:
         output: tariff
 
 ## Stretch tasks (optional)
+Offer a swagger page to ease service testing - done
 
-    API key authentication
 
-    JUnit tests: cover your code to at least 80% (I didn't get to using JUnit, but I did test with api-tests.http. 
+JUnit tests: cover your code to at least 80% (I didn't get to using JUnit, but I did test with api-tests.http.
         Using JUnit would be a next step if time had allowed. I will return and do this as a learning exercise in SpringBoot)
 
-    offer a swagger page to ease service testing - done
+    API key authentication
 
     sync: a scheduled task should sync via http and copy/merge remote tariffs to the local ones
 
