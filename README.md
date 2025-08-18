@@ -1,13 +1,92 @@
 # WiFi Tariff Service
-This is a test project with an example use case:
+This is a test project with **an example use case**:
 
-A REST API service for managing WiFi tariff packages in a boutique hotel chain. Built with modern Java 21 and Spring Boot 3.x, designed for Alpine Border Hotels' cross-border operations (Germany/Switzerland).
+#### A REST API service that manages WiFi tariff packages in a boutique hotel chain, designed for Alpine Border Hotels' cross-border operations (Germany/Switzerland)..
 
-## Quick Start
+## Functionality
+
+(8 hour task, tech stack requirements: 
+    Spring Boot 3 / Java 21+
+    JSON REST interface with standard HTTP methods and status codes
+    data storage of choice)
+
+I designed a tariff JSON REST data structure that can handle the following information: name, features, prices (at least)
+I developed a service with the following functionality:
+
+    create a tariff and persist it
+        input: tariff
+        output: tariff (mirrored processed input)
+    get a tariff
+        input: tariff id
+        output: tariff
+    modify a tariff
+        input: tariff id and tariff data
+        output: updated tariff
+    delete a tariff
+        input: unique tariff id
+        output: tariff
+
+## Stretch tasks (optional)
+
+    API key authentication
+
+    JUnit tests: cover your code to at least 80% (I didn't get to using JUnit, but I did test with api-tests.http. 
+        Using JUnit would be a next step if time had allowed. I will return and do this as a learning exercise in SpringBoot)
+
+    offer a swagger page to ease service testing - done
+
+    sync: a scheduled task should sync via http and copy/merge remote tariffs to the local ones
+
+    create a docker container running the application
 
 ### Prerequisites
-- Java 21 and SpringBoot 3.4.8
+- Java 21 and SpringBoot 3.4.8 
+(I used the Latest Stable Version of Eclipse Temurin: https://adoptium.net/temurin/releases/?version=21
+  )
 - No database setup required (uses embedded H2)
+
+### Java Installation Required
+
+  To run this service, check if you have the correct JDK first:
+
+  java -version
+
+  If you see version 21+, you're ready! Otherwise, install Java:
+  
+Option 1: Download from Oracle (Recommended)
+
+Visit: https://www.oracle.com/java/technologies/downloads/#java21
+Download Java 21 JDK for your operating system
+Install using the downloaded installer
+Verify: java -version should show version 21.x.x
+
+Option 2: Using Package Managers
+bash# macOS (using Homebrew)
+brew install openjdk@21
+
+### Ubuntu/Debian
+sudo apt update && sudo apt install openjdk-21-jdk
+
+### Windows (using Chocolatey)
+choco install openjdk21
+
+### Or use SDKMAN (cross-platform)
+curl -s "https://get.sdkman.io" | bash
+sdk install java 21.0.1-oracle
+
+Option 3: Alternative JDK Distributions
+
+Eclipse Temurin: https://adoptium.net/temurin/releases/?version=21
+Amazon Corretto: https://aws.amazon.com/corretto/
+Microsoft OpenJDK: https://docs.microsoft.com/java/
+
+### Other Requirements
+
+No Maven installation needed (project includes Maven wrapper)
+
+No database setup required (uses embedded H2)
+
+No additional tools required (all dependencies managed by Maven)
 
 ### Run the Application
 ```bash
@@ -71,9 +150,10 @@ Use the included `api-tests.http` file in IntelliJ IDEA or VS Code (REST Client 
 - Business scenario testing
 
 ### Manual Testing
-1. Open Swagger UI: http://localhost:8080/swagger-ui.html
+1. Once the service is running, you can run tests via the api-tests.http file (IntelliJ Ultimate has some useful features to help with this. 
+2. Another option is to use Swagger. Open Swagger UI: http://localhost:8080/swagger-ui.html
 2. Use "Try it out" feature for each endpoint
-3. Populate sample data using provided JSON examples
+3. Populate sample data using provided JSON examples. Be sure to change the JSON input according to your test requirements.
 
 ## Business Context
 

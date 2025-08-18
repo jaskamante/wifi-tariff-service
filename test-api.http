@@ -57,7 +57,7 @@ Content-Type: application/json
   "maxDevices": 8,
   "basePrice": 29.99,
   "currency": "EUR",
-  "billingType": "ONE_TIME"
+  "billingType": "MONTHLY"
 }
 
 ### 7. Verify update worked
@@ -319,3 +319,299 @@ Content-Type: application/json
 #  "currency": "EUR",
 #  "billingType": "INVALID_TYPE"
 #}
+
+
+### ========================================
+### COMPLETE HOTEL TARIFF SUITE POPULATION
+### ========================================
+### Use this section to populate your database with the full
+### Alpine Border Hotels tariff catalog for comprehensive testing
+
+### === LOYALTY PROGRAM SUITE (Blue → Silver → Gold → Platinum) ===
+
+
+### Blue Member Welcome WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Blue Member Welcome WiFi",
+  "downloadMbps": 25,
+  "uploadMbps": 10,
+  "durationHours": 2,
+  "maxDevices": 2,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Silver Member Extended WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Silver Member Extended WiFi",
+  "downloadMbps": 50,
+  "uploadMbps": 25,
+  "durationHours": 12,
+  "maxDevices": 3,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Gold Member Business WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Gold Member Business WiFi",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Platinum Member Premium WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Platinum Member Premium WiFi",
+  "downloadMbps": 200,
+  "uploadMbps": 100,
+  "durationHours": 72,
+  "maxDevices": 10,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### === GERMAN PROPERTIES PAY-PER-USE SUITE (EUR) ===
+
+### Guest Quick WiFi - Entry Level
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Guest Quick WiFi",
+  "downloadMbps": 25,
+  "uploadMbps": 10,
+  "durationHours": 1,
+  "maxDevices": 1,
+  "basePrice": 4.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Half-Day Business WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Half-Day Business WiFi",
+  "downloadMbps": 75,
+  "uploadMbps": 35,
+  "durationHours": 12,
+  "maxDevices": 3,
+  "basePrice": 12.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Full-Day Premium WiFi - Sweet Spot
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Full-Day Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 19.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Weekend Explorer WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Weekend Explorer WiFi",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 48,
+  "maxDevices": 4,
+  "basePrice": 29.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### === GERMAN CONFERENCE & EVENTS SUITE ===
+
+### Meeting Room Pro WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Meeting Room Pro WiFi",
+  "downloadMbps": 300,
+  "uploadMbps": 150,
+  "durationHours": 8,
+  "maxDevices": 20,
+  "basePrice": 99.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Event Space Ultra WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Event Space Ultra WiFi",
+  "downloadMbps": 500,
+  "uploadMbps": 250,
+  "durationHours": 12,
+  "maxDevices": 50,
+  "basePrice": 199.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### === SWISS PROPERTIES SUITE (CHF Pricing) ===
+
+### Swiss Guest Quick WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Swiss Guest Quick WiFi",
+  "downloadMbps": 25,
+  "uploadMbps": 10,
+  "durationHours": 1,
+  "maxDevices": 1,
+  "basePrice": 4.50,
+  "currency": "CHF",
+  "billingType": "ONE_TIME"
+}
+
+### Swiss Half-Day Business WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Swiss Half-Day Business WiFi",
+  "downloadMbps": 75,
+  "uploadMbps": 35,
+  "durationHours": 12,
+  "maxDevices": 3,
+  "basePrice": 11.90,
+  "currency": "CHF",
+  "billingType": "ONE_TIME"
+}
+
+### Swiss Full-Day Premium WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Swiss Full-Day Premium WiFi",
+  "downloadMbps": 150,
+  "uploadMbps": 75,
+  "durationHours": 24,
+  "maxDevices": 5,
+  "basePrice": 18.50,
+  "currency": "CHF",
+  "billingType": "ONE_TIME"
+}
+
+### Swiss Weekend Explorer WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Swiss Weekend Explorer WiFi",
+  "downloadMbps": 100,
+  "uploadMbps": 50,
+  "durationHours": 48,
+  "maxDevices": 4,
+  "basePrice": 27.50,
+  "currency": "CHF",
+  "billingType": "ONE_TIME"
+}
+
+### Swiss Meeting Room Pro WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Swiss Meeting Room Pro WiFi",
+  "downloadMbps": 300,
+  "uploadMbps": 150,
+  "durationHours": 8,
+  "maxDevices": 20,
+  "basePrice": 89.90,
+  "currency": "CHF",
+  "billingType": "ONE_TIME"
+}
+
+### === SPECIALTY TARIFFS ===
+
+### Executive Lounge WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Executive Lounge WiFi",
+  "downloadMbps": 200,
+  "uploadMbps": 100,
+  "durationHours": 4,
+  "maxDevices": 3,
+  "basePrice": 0.00,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Spa & Wellness WiFi
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Spa & Wellness WiFi",
+  "downloadMbps": 50,
+  "uploadMbps": 25,
+  "durationHours": 3,
+  "maxDevices": 2,
+  "basePrice": 9.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### Business Center Pro
+POST http://localhost:8080/api/tariffs
+Content-Type: application/json
+
+{
+  "name": "Business Center Pro",
+  "downloadMbps": 500,
+  "uploadMbps": 250,
+  "durationHours": 2,
+  "maxDevices": 1,
+  "basePrice": 15.99,
+  "currency": "EUR",
+  "billingType": "ONE_TIME"
+}
+
+### ========================================
+### 12. VERIFY COMPLETE CATALOG POPULATED
+### ========================================
+
+### Get all tariffs - should show 18 total
+GET http://localhost:8080/api/tariffs
+Accept: application/json
