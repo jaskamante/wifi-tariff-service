@@ -27,7 +27,8 @@ I developed a service with the following functionality:
         output: tariff
 
 ## Stretch tasks (optional)
-Offer a swagger page to ease service testing - done
+Offer a swagger page to ease service testing - done - basic default integration. 
+        TODO: Add more detailed documentation. (>8 hrs, so do later)
 
 
 JUnit tests: cover your code to at least 80% (I didn't get to using JUnit, but I did test with api-tests.http.
