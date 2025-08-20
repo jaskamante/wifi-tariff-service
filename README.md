@@ -310,3 +310,15 @@ Uses `BigDecimal` for all monetary values to ensure:
 - Compliance with financial industry standards
 - Proper handling of EUR/CHF exchange scenarios
 - Audit-trail accuracy for accounting systems (future proof)
+
+### Repository Pattern
+
+The repository abstraction allows controllers and services to focus on business logic rather than data access mechanics, resulting in cleaner, more maintainable code that clearly expresses business intent.
+Future Extension Capabilities:
+As the hotel chain grows or business requirements evolve, the repository can be extended with:
+
+- Custom query methods using method naming conventions
+- Complex business queries using @Query annotations
+- Specification pattern for dynamic search functionality
+- Custom repository implementations for specialized operations
+- Caching annotations for performance optimization

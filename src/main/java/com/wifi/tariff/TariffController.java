@@ -3,7 +3,6 @@ package com.wifi.tariff;
 import com.wifi.tariff.model.Tariff;
 import com.wifi.tariff.repository.TariffRepository;
 import com.wifi.tariff.validation.ValidationGroups;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import jakarta.validation.constraints.Min;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tariffs")
