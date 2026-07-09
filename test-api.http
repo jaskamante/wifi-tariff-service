@@ -6,10 +6,10 @@
 ### =============================================================================
 
 ### 1. Get all tariffs (should be empty initially)
-GET http://localhost:8080/api/tariffs
+GET {{host}}/api/tariffs
 
 ### 2. Create new tariff (basic test)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -24,10 +24,10 @@ Content-Type: application/json
 }
 
 ### 3. Get tariff by ID (use ID from step 2 response)
-GET http://localhost:8080/api/tariffs/1
+GET {{host}}/api/tariffs/1
 
 ### 4. Create second tariff for testing
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -42,10 +42,10 @@ Content-Type: application/json
 }
 
 ### 5. Get all tariffs (should now show multiple)
-GET http://localhost:8080/api/tariffs
+GET {{host}}/api/tariffs
 
 ### 6. Update first tariff
-PUT http://localhost:8080/api/tariffs/1
+PUT {{host}}/api/tariffs/1
 Content-Type: application/json
 
 {
@@ -61,42 +61,42 @@ Content-Type: application/json
 }
 
 ### 7. Verify update worked
-GET http://localhost:8080/api/tariffs/1
+GET {{host}}/api/tariffs/1
 
 ### 8. Delete second tariff
-DELETE http://localhost:8080/api/tariffs/2
+DELETE {{host}}/api/tariffs/2
 
 ### 9. Verify deletion (should return 404)
-GET http://localhost:8080/api/tariffs/2
+GET {{host}}/api/tariffs/2
 
 ### =============================================================================
 ### ERROR HANDLING TESTS - Path Parameters
 ### =============================================================================
 
 ### E1. Invalid ID type (string instead of integer)
-GET http://localhost:8080/api/tariffs/abc
+GET {{host}}/api/tariffs/abc
 
 ### E2. Negative ID
-GET http://localhost:8080/api/tariffs/-1
+GET {{host}}/api/tariffs/-1
 
 ### E3. Zero ID
-GET http://localhost:8080/api/tariffs/0
+GET {{host}}/api/tariffs/0
 
 ### E4. Non-existent ID (resource not found)
-GET http://localhost:8080/api/tariffs/999
+GET {{host}}/api/tariffs/999
 
 ### E5. DELETE with invalid ID type
-DELETE http://localhost:8080/api/tariffs/invalid
+DELETE {{host}}/api/tariffs/invalid
 
 ### E6. DELETE with negative ID
-DELETE http://localhost:8080/api/tariffs/-5
+DELETE {{host}}/api/tariffs/-5
 
 ### =============================================================================
 ### ERROR HANDLING TESTS - Request Body Validation
 ### =============================================================================
 
 ### E7. Missing required fields
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -105,7 +105,7 @@ Content-Type: application/json
 }
 
 ### E8. Invalid data type (string for number)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -120,7 +120,7 @@ Content-Type: application/json
 }
 
 ### E9. Constraint violation (negative price)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -135,7 +135,7 @@ Content-Type: application/json
 }
 
 ### E10. Empty string name (should fail @NotBlank)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -150,7 +150,7 @@ Content-Type: application/json
 }
 
 ### E11. Name too short (should fail @Size)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -165,7 +165,7 @@ Content-Type: application/json
 }
 
 ### E12. Multiple constraint violations
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -180,7 +180,7 @@ Content-Type: application/json
 }
 
 ### E13. Completely empty request body
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {}
@@ -190,7 +190,7 @@ Content-Type: application/json
 ### =============================================================================
 
 ### E14. POST with ID provided (should be rejected - Create group)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -206,7 +206,7 @@ Content-Type: application/json
 }
 
 ### E15. POST with null ID (should work)
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -222,7 +222,7 @@ Content-Type: application/json
 }
 
 ### E16. PUT without ID in body (should be rejected - Update group)
-PUT http://localhost:8080/api/tariffs/1
+PUT {{host}}/api/tariffs/1
 Content-Type: application/json
 
 {
@@ -237,7 +237,7 @@ Content-Type: application/json
 }
 
 ### E17. PUT with ID mismatch (URL vs body - uses id in url - to check business requirements)
-PUT http://localhost:8080/api/tariffs/1
+PUT {{host}}/api/tariffs/1
 Content-Type: application/json
 
 {
@@ -257,7 +257,7 @@ Content-Type: application/json
 ### =============================================================================
 
 ### B1. Minimum valid values
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -272,7 +272,7 @@ Content-Type: application/json
 }
 
 ### B2. Large valid values
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -291,7 +291,7 @@ Content-Type: application/json
 #### =============================================================================
 #
 #### EN1. Invalid currency
-#POST http://localhost:8080/api/tariffs
+#POST {{host}}/api/tariffs
 #Content-Type: application/json
 #
 #{
@@ -306,7 +306,7 @@ Content-Type: application/json
 #}
 #
 #### EN2. Invalid billing type
-#POST http://localhost:8080/api/tariffs
+#POST {{host}}/api/tariffs
 #Content-Type: application/json
 #
 #{
@@ -331,7 +331,7 @@ Content-Type: application/json
 
 
 ### Blue Member Welcome WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -346,7 +346,7 @@ Content-Type: application/json
 }
 
 ### Silver Member Extended WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -361,7 +361,7 @@ Content-Type: application/json
 }
 
 ### Gold Member Business WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -376,7 +376,7 @@ Content-Type: application/json
 }
 
 ### Platinum Member Premium WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -393,7 +393,7 @@ Content-Type: application/json
 ### === GERMAN PROPERTIES PAY-PER-USE SUITE (EUR) ===
 
 ### Guest Quick WiFi - Entry Level
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -408,7 +408,7 @@ Content-Type: application/json
 }
 
 ### Half-Day Business WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -423,7 +423,7 @@ Content-Type: application/json
 }
 
 ### Full-Day Premium WiFi - Sweet Spot
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -438,7 +438,7 @@ Content-Type: application/json
 }
 
 ### Weekend Explorer WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -455,7 +455,7 @@ Content-Type: application/json
 ### === GERMAN CONFERENCE & EVENTS SUITE ===
 
 ### Meeting Room Pro WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -470,7 +470,7 @@ Content-Type: application/json
 }
 
 ### Event Space Ultra WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -487,7 +487,7 @@ Content-Type: application/json
 ### === SWISS PROPERTIES SUITE (CHF Pricing) ===
 
 ### Swiss Guest Quick WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -502,7 +502,7 @@ Content-Type: application/json
 }
 
 ### Swiss Half-Day Business WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -517,7 +517,7 @@ Content-Type: application/json
 }
 
 ### Swiss Full-Day Premium WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -532,7 +532,7 @@ Content-Type: application/json
 }
 
 ### Swiss Weekend Explorer WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -547,7 +547,7 @@ Content-Type: application/json
 }
 
 ### Swiss Meeting Room Pro WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -564,7 +564,7 @@ Content-Type: application/json
 ### === SPECIALTY TARIFFS ===
 
 ### Executive Lounge WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -579,7 +579,7 @@ Content-Type: application/json
 }
 
 ### Spa & Wellness WiFi
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -594,7 +594,7 @@ Content-Type: application/json
 }
 
 ### Business Center Pro
-POST http://localhost:8080/api/tariffs
+POST {{host}}/api/tariffs
 Content-Type: application/json
 
 {
@@ -613,5 +613,5 @@ Content-Type: application/json
 ### ========================================
 
 ### Get all tariffs - should show 18 total
-GET http://localhost:8080/api/tariffs
+GET {{host}}/api/tariffs
 Accept: application/json
