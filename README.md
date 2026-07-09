@@ -104,8 +104,8 @@ mvnw.exe spring-boot:run      # Windows
 ```
 
 ### Verify It's Working
-- **API Documentation**: http://localhost:8080/swagger-ui.html
-- **H2 Database Console**: http://localhost:8080/h2-console
+- **API Documentation**: http://localhost:8081/swagger-ui.html
+- **H2 Database Console**: http://localhost:8081/h2-console
     - JDBC URL: `jdbc:h2:mem:testdb`
     - Username: `sa`
     - Password: (leave blank)
@@ -152,7 +152,7 @@ Use the included `api-tests.http` file in IntelliJ IDEA or VS Code (REST Client 
 
 ### Manual Testing
 1. Once the service is running, you can run tests via the api-tests.http file (IntelliJ Ultimate has some useful features to help with this. 
-2. Another option is to use Swagger. Open Swagger UI: http://localhost:8080/swagger-ui.html
+2. Another option is to use Swagger. Open Swagger UI: http://localhost:8081/swagger-ui.html
 2. Use "Try it out" feature for each endpoint
 3. Populate sample data using provided JSON examples. Be sure to change the JSON input according to your test requirements.
 
